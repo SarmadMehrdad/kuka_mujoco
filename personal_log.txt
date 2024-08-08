@@ -93,6 +93,24 @@ Aug 8 2024:
 	So far, all three have similar but different results:
 	Solver Cost:  3.53142 || Computed Sum Cost:  3.82521 || Numerical Cost:  3.70283
 
+	- Three different solvers were created for the cause mentioned above. Although they solved separate (identical) problems, the cost discrepency was still there.
+	Exploring why...
+	
+	- SOLVED: The issue between the first and second method's mismatch was due to the fact that the running models' cost were not being multiplied by the time difference (dt),
+	so the integration was not being done properly. Now, the only mismatch is between the 2nd and 3rd method which is now significantly lower than before:
+	Solver Cost:  3.53142 || Computed Sum Cost:  3.53142 || Numerical Cost:  3.54379
+	
+	- At this point I think I'm fine. I'll just use the inner-computed costs for each instance within the CostData and CostModel.
+	IMPORTANT NOTE: Should use the .copy() command before doing any computation !! 
+	Example: A = solver.problem.terminalData.differential***.copy()***.cost 
+	
+	TO-DO: Forget the previously written CostStack functions. 
+	Create two separate solver(problem)s, use one for the MPC loop and it's Xs and Us generations, and the other for reward analysis, and sampled trajectory analysis around the generated
+	trajectories. 
+	
+Aug 9 2024:
+
+	- 
 
 
 
