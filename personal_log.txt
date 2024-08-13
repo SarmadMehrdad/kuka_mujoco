@@ -110,9 +110,35 @@ Aug 8 2024:
 	
 Aug 9 2024:
 
-	- 
+	- The problem that was SOLVED yesterday for the cost mismatch appears to have not been resolved. 
+	The problem is solved for models with one stage model and one terminal model, but when tested for problems with 50 stage (running) models, the problem remained persistent.
+	
+	- SOLVED: The discrepency is caused by the solver failing to solve the shooting problem. 
+	For shorter horizons (less than 3) the problem converges and costs match. 
+	
+	- It turns out that the problem with divergance came from the definition of collision pair.
+	Apparently, when the collisionPair is defined with (obstacle, robot_link) instead of (robot_link, obstacle), the solver will get stuck around the obstacle and won't move forward.
+	I changed the collisionPair definition back to its original declaration which was (robot_link, obstacle)
+	
+	- The discrepency between the numerical cost and the solver cost output remained in place in higher number of stages.
+	SOLVED: The problem was emerging due to the divergence of the solver. If the solver succeeds in solving the shooting problem, the costs will be equal.
+	
+	- Collision constrained model was created to compare against the unconstrained model.
+	The constrained model works fine given the correct constraits defined for the EE distance with the obstacles ---> lb = {-inf, -inf, -inf}, ub = {1, 1, 1}
+	
+	TODO: 
+		1. Write the sampling function and MPC generation for the sampled states around the current state.
+		
+		2. Now that the costs are computed correctly, a function to analyze and compute the costs is needed. 
+		This calls for a class for costs that takes in, as an argument, the solver, and disects the solver instance to compute all the cost terms embedded within.
+	
+Aug 12 2024:
 
+	- Look at the KKT of solver for ensuring the convergence.
 
+Aug 13 2024:
+
+	
 
 
 
