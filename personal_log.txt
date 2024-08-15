@@ -138,6 +138,44 @@ Aug 12 2024:
 
 Aug 13 2024:
 
+	- Geometry model updated. It is now the most corrected version.
+	*** DO NOT TOUCH ***
+	
+	- The scenario is updated. The initial position is no longer solved for joint positions. It is set by direct joint values.
+	The scenario is tested with different cost weights and it works properly. Obstacle avoidance is also tested and working properly 
+	(I guess, thanks to the correct capsule placement for collision pairs).
+	
+Aug 14 2024:
+
+	- Checkpoint:
+	The scenario is set as the following:
+	>> Initial Joint Configuration: np.array([0.2, 0.7, 0.3, -1.1, -0.3, 0.3, 0.]) ---> Corresponds to XYZ : [0.6784 0.262  0.5617]
+	>> Goal Position: [0.4,  -0.5,  0.35]
+	>> Obstacles (Optional):
+		1. [0.75, 0.0, 0.55]
+		2. [0.65, -0.15, 0.45]
+		3. [0.5, -0.3, 0.4]
+	>> Running Weights:
+		1. State Regulation: 0.1
+		2. Control Gravity Regulation: 0.0001
+		3. Frame Translation: 10
+		4. Collision: 100
+	>> Terminal Weights:
+		1. State Regulation: 0.1
+		2. Frame Translation: 100
+		3. Collision: 1000
+	>> Collision Radius for Activation: 0.2 m
+	>> DT = 0.01
+	>> Running Model Count: 50
+	>> Solver: SQP (or CSQP in case of constraining the collision)
+	
+	- The CostModel coding is ongoing. 
+	The Cost Data needs to be added to the class initialization it seems...
+	
+Aug 15 2024:
+
+	- CostModel class is written and tested. 
+	The cost derivations within the class are not using 'calc' and 'calcDiff' directly, and are extracted from the embedded solver in the class.
 	
 
 
