@@ -177,6 +177,9 @@ Aug 15 2024:
 	- CostModel class is written and tested. 
 	The cost derivations within the class are not using 'calc' and 'calcDiff' directly, and are extracted from the embedded solver in the class.
 	
+Aug 16 2024: 
+
+	- 
 
 
 
